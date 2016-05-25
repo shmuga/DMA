@@ -1,0 +1,132 @@
+<html>
+<head>
+	<meta charset="utf8">
+	<title>Fibonacci helper</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,300italic,300,600,700,600italic,800,700italic,800italic' rel='stylesheet' type='text/css'>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+
+</head>
+<body style="background-image: url('https://i.ytimg.com/vi/QL8ed85S1q8/maxresdefault.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center center; font-family:'Open Sans'">
+	<div class="col-md-offset-2 col-md-8" style="height: 100%; background: rgb(255, 255, 255);">
+		<div class="text-center" style="padding-top: 100px; padding-bottom: 20px">
+			<i class="fa fa-terminal" style="font-size: 90px;"></i>
+		</div>		
+		<h1 class="text-center"> Fibonacci helper </h1>
+		<h3 class="text-center"> This script will provide you solution for <span style="font-style: italic; font-weight: bold;">a&#215;F<sub>n</sub> + b</span> equation </h3>
+		<form id="params_form" class="bs-example bs-example-form" style="margin-top: 30px;">
+			<input type="hidden" id="params_id"> 
+			<div class="row">
+				<div class="col-md-offset-3 col-md-2">
+					<div class="input-group">
+						<span class="input-group-addon" >a:</span>
+						<input type="number" class="form-control" id="params_a" required="required" placeholder="value">
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="input-group">
+						<span class="input-group-addon">b:</span>
+						<input type="number" class="form-control" id="params_b" required="required" placeholder="value">
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="input-group">
+						<button type="submit" class="btn btn-default" style="width: 100;">
+							<span class="fa fa-save"></span> Update
+						</button>
+					</div>
+				</div>
+			</div>
+		</form>
+		<form id="calculation_form" class="bs-example bs-example-form" style="margin-top: 30px;">
+			<div class="row">
+				<div class="col-md-offset-4 col-md-2">
+					<div class="input-group">
+						<span class="input-group-addon">n:</span>
+						<input max="42" type="number" class="form-control" id="n" required="required" placeholder="value">
+					</div>
+				</div>
+				<div class="col-md-2">
+					<div class="input-group">
+						<button type="submit" class="btn btn-default" style="width: 100;">
+							<span class="fa fa-calculator"></span> Calculate
+						</button>
+					</div>
+				</div>
+			</div>
+		</form>
+		<div class="row">
+			<div class="col-md-12 text-center">
+				<h2 id="result">
+					result
+				</h2>
+				
+			</div>
+		</div>
+	</div>	
+	<script type="text/javascript">
+
+	$(document).ready(function() {
+
+		var domain = 'http://192.168.99.100';
+
+		var refreshParams = function() {
+			$.ajax({
+				url: domain + '/settings',
+				method: 'GET',
+				dataType: 'json',
+				success: function(data) {
+					$('#params_a').val(data.a);
+					$('#params_b').val(data.b);
+					$('#params_id').val(data._id);
+				},
+				fail: function() {
+					alert('Some error occurred');
+				} 
+			});
+		};
+
+		refreshParams();
+
+		$('#params_form').on('submit', function() {
+			$.ajax({
+				url: domain + '/settings',
+				data: {
+					a: $('#params_a').val() * 1,
+					b: $('#params_b').val() * 1,
+					id: $('#params_id').val() || 666
+				},
+				method: 'POST',
+				dataType: 'json',
+				success: function(data) {
+					refreshParams();
+				},
+				error: function() {
+					alert('Some error occurred');
+				} 
+			});
+			return false;
+		});
+
+		$('#calculation_form').on('submit', function() {
+			$.ajax({
+				url: domain + '/' + $('#n').val() * 1,
+				method: 'GET',
+				dataType: 'json',
+				success: function(data) {
+					$('#result').html(data * 1);
+				},
+				error: function() {
+					alert('Some error occurred');
+				} 
+			});
+			return false;
+		});
+
+	});
+
+	</script>
+</body>
+</html>
