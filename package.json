@@ -4,12 +4,18 @@
   "description": "really-super-stable-app",
   "main": "index.js",
   "scripts": {
+    "dev": "export NODE_ENV=development && nodemon .",
+    "preprod": "export NODE_ENV=development && pm2 processes.yml",
+    "start": "export NODE_ENV=production && node .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Mark mail.ormark@gmail.com",
   "license": "MIT",
   "dependencies": {
     "hapi": "^13.4.1",
-    "haredis": "^0.2.15"
+    "haredis": "^0.2.15",
+    "inert": "^4.0.0",
+    "mongodb": "^2.1.20",
+    "mongoose": "^4.4.19"
   }
 }

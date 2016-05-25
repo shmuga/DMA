@@ -1,0 +1,6 @@
+apps:
+  name      : godzilla
+  script    : index.js
+  instances : 5
+  autorestart: true
+  exec_mode : cluster
