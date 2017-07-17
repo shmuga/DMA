@@ -12,7 +12,7 @@
   "author": "Mark mail.ormark@gmail.com",
   "license": "MIT",
   "dependencies": {
-    "hapi": "^13.4.1",
+    "hapi": "^16.4.3",
     "haredis": "^0.2.15",
     "inert": "^4.0.0",
     "mongodb": "^2.1.20",
