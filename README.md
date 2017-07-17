@@ -1,5 +1,7 @@
 #Information
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/shmuga/DMA.svg)](https://greenkeeper.io/)
+
 The system is designed to calculate the formula а*F(n) +b.
 
 Application provides an opportunity to change the value A and B.
